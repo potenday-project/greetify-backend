@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.0"
-    id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.20"
-    kotlin("plugin.spring") version "1.9.20"
+    id("org.springframework.boot") version Version.SPRING_BOOT
+    id("io.spring.dependency-management") version Version.SPRING_DEPENDENCY_MANAGEMENT
+    kotlin("jvm") version Version.KOTLIN
+    kotlin("plugin.spring") version Version.KOTLIN
 }
 
 group = "com.beside"
@@ -28,16 +28,35 @@ repositories {
 extra["springCloudVersion"] = "2023.0.0-RC1"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-validation:${Version.SPRING_BOOT}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${Version.SPRING_BOOT}")
+
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
+
+    // openfeign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1")
+
+    // annotation processor
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:${Version.SPRING_BOOT}")
+
+    // kotlin
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
+
+    // development support
+    developmentOnly("org.springframework.boot:spring-boot-devtools:${Version.SPRING_BOOT}")
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose:${Version.SPRING_BOOT}")
+
+    // kotest
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${Version.SPRING_BOOT}")
+    testImplementation("io.kotest:kotest-runner-junit5:5.8.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.8.0")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
+
+    // mockk
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 dependencyManagement {
@@ -49,7 +68,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+        jvmTarget = Version.JAVA
     }
 }
 
