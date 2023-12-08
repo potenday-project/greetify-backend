@@ -13,6 +13,8 @@ data class Card(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 ) {
     companion object {
+        const val RETENTION_HOUR: Long = 24
+
         fun create(
             userIp: IPAddress,
             cardDesignId: Long,

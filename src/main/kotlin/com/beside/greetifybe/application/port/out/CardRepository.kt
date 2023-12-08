@@ -7,5 +7,5 @@ interface CardRepository {
 
     fun save(card: Card)
 
-    fun findByIpAddress(ipAddress: IPAddress): Card?
+    fun getByIpAddress(ipAddress: IPAddress): Card?
 }
