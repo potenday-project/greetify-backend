@@ -1,4 +1,4 @@
-package com.beside.greetifybe.application.usecase
+package com.beside.greetifybe.application.port.`in`
 
 import com.beside.greetifybe.domain.enums.Age
 import com.beside.greetifybe.domain.enums.Dialect

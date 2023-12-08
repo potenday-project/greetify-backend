@@ -2,8 +2,8 @@ package com.beside.greetifybe.adapter.`in`.rest
 
 import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardRequest
 import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
-import com.beside.greetifybe.application.usecase.CreateCardUseCase
-import com.beside.greetifybe.application.usecase.GetRecentCardUseCase
+import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
+import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
 import com.beside.greetifybe.common.exception.NotFoundException
 import com.beside.greetifybe.domain.vo.IPAddress
 import jakarta.servlet.http.HttpServletRequest

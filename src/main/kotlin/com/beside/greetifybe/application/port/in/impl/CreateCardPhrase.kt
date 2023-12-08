@@ -1,5 +1,6 @@
-package com.beside.greetifybe.application.usecase
+package com.beside.greetifybe.application.port.`in`.impl
 
+import com.beside.greetifybe.application.port.`in`.CreateCardPhraseUseCase
 import org.springframework.stereotype.Service
 
 @Service

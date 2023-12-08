@@ -1,4 +1,4 @@
-package com.beside.greetifybe.application.port
+package com.beside.greetifybe.application.port.out
 
 import com.beside.greetifybe.domain.Card
 
