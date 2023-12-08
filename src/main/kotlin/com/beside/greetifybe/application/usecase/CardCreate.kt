@@ -29,10 +29,6 @@ class CardCreate(
         val newCard: Card = Card.create(
             command.userIp,
             command.cardDesignId,
-            command.season,
-            command.emotional,
-            command.age,
-            command.dialect,
             phrase
         )
 
