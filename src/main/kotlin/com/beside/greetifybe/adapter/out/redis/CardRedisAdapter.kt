@@ -1,6 +1,6 @@
 package com.beside.greetifybe.adapter.out.redis
 
-import com.beside.greetifybe.application.port.out.CardRepository
+import com.beside.greetifybe.application.port.CardRepository
 import com.beside.greetifybe.domain.Card
 import com.beside.greetifybe.domain.vo.IPAddress
 import org.springframework.data.redis.core.RedisTemplate

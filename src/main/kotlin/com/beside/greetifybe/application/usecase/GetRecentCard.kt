@@ -1,15 +1,15 @@
 package com.beside.greetifybe.application.usecase
 
-import com.beside.greetifybe.application.port.out.CardRepository
+import com.beside.greetifybe.application.port.CardRepository
 import com.beside.greetifybe.domain.vo.IPAddress
 import org.springframework.stereotype.Service
 
 @Service
-class CardGetRecent(
+class GetRecentCard(
     private val cardRepository: CardRepository,
-) : CardGetRecentUseCase {
+) : GetRecentCardUseCase {
 
-    override fun invoke(ipAddress: IPAddress): CardGetRecentUseCase.Result {
+    override fun invoke(ipAddress: IPAddress): GetRecentCardUseCase.Result {
         TODO("Not yet implemented")
     }
 

@@ -3,7 +3,7 @@ package com.beside.greetifybe.application.usecase
 import com.beside.greetifybe.domain.Card
 import com.beside.greetifybe.domain.vo.IPAddress
 
-fun interface CardGetRecentUseCase {
+fun interface GetRecentCardUseCase {
 
     fun invoke(ipAddress: IPAddress): Result
 

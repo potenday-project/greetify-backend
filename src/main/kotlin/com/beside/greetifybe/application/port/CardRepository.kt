@@ -1,4 +1,4 @@
-package com.beside.greetifybe.application.port.out
+package com.beside.greetifybe.application.port
 
 import com.beside.greetifybe.domain.Card
 import com.beside.greetifybe.domain.vo.IPAddress

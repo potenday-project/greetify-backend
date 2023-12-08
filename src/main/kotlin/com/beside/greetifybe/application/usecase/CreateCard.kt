@@ -1,18 +1,18 @@
 package com.beside.greetifybe.application.usecase
 
-import com.beside.greetifybe.application.port.out.CardRepository
+import com.beside.greetifybe.application.port.CardRepository
 import com.beside.greetifybe.domain.Card
 import org.springframework.stereotype.Service
 
 @Service
-class CardCreate(
+class CreateCard(
     private val cardRepository: CardRepository,
-    private val cardPhraseCreateUseCase: CardPhraseCreateUseCase
-) : CardCreateUseCase {
+    private val createCardPhraseUseCase: CreateCardPhraseUseCase
+) : CreateCardUseCase {
 
-    override fun invoke(command: CardCreateUseCase.Command): CardCreateUseCase.Result {
-        val phrase: String = cardPhraseCreateUseCase.invoke(
-            CardPhraseCreateUseCase.Command(
+    override fun invoke(command: CreateCardUseCase.Command): CreateCardUseCase.Result {
+        val phrase: String = createCardPhraseUseCase.invoke(
+            CreateCardPhraseUseCase.Command(
                 command.season,
                 command.emotional,
                 command.age,
@@ -21,8 +21,8 @@ class CardCreate(
             )
         ).let {
             when (it) {
-                is CardPhraseCreateUseCase.Result.Success -> it.phrase
-                is CardPhraseCreateUseCase.Result.Failure -> return CardCreateUseCase.Result.Failure(it.message)
+                is CreateCardPhraseUseCase.Result.Success -> it.phrase
+                is CreateCardPhraseUseCase.Result.Failure -> return CreateCardUseCase.Result.Failure(it.message)
             }
         }
 
@@ -33,7 +33,7 @@ class CardCreate(
         )
 
         cardRepository.save(newCard)
-        return CardCreateUseCase.Result.Success(phrase)
+        return CreateCardUseCase.Result.Success(phrase)
     }
 
 }

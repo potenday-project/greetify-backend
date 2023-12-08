@@ -2,8 +2,8 @@ package com.beside.greetifybe.adapter.`in`.rest
 
 import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardRequest
 import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
-import com.beside.greetifybe.application.usecase.CardCreateUseCase
-import com.beside.greetifybe.application.usecase.CardGetRecentUseCase
+import com.beside.greetifybe.application.usecase.CreateCardUseCase
+import com.beside.greetifybe.application.usecase.GetRecentCardUseCase
 import com.beside.greetifybe.common.exception.NotFoundException
 import com.beside.greetifybe.domain.vo.IPAddress
 import jakarta.servlet.http.HttpServletRequest
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/cards")
 class CardRestController(
-    private val cardCreateUseCase: CardCreateUseCase,
-    private val cardGetRecentUseCase: CardGetRecentUseCase,
+    private val createCardUseCase: CreateCardUseCase,
+    private val getRecentCardUseCase: GetRecentCardUseCase,
 ) {
 
     @PostMapping("/create")
@@ -25,7 +25,7 @@ class CardRestController(
         createCardRequest: CreateCardRequest
     ) {
         val currentIP = IPAddress(request.remoteAddr)
-        val useCaseCommand: CardCreateUseCase.Command = CardCreateUseCase.Command(
+        val useCaseCommand: CreateCardUseCase.Command = CreateCardUseCase.Command(
             userIp = currentIP,
             cardDesignId = createCardRequest.cardDesignId,
             season = createCardRequest.season,
@@ -35,18 +35,18 @@ class CardRestController(
             words = createCardRequest.words
         )
 
-        cardCreateUseCase.invoke(useCaseCommand)
+        createCardUseCase.invoke(useCaseCommand)
     }
 
     @GetMapping("/recent")
     @ResponseStatus(HttpStatus.OK)
     fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
-        val result: CardGetRecentUseCase.Result = cardGetRecentUseCase.invoke(currentIP)
+        val result: GetRecentCardUseCase.Result = getRecentCardUseCase.invoke(currentIP)
 
         return when (result) {
-            is CardGetRecentUseCase.Result.Success -> GetRecentCardResponse.from(result.card)
-            is CardGetRecentUseCase.Result.Failure -> throw NotFoundException(result.message)
+            is GetRecentCardUseCase.Result.Success -> GetRecentCardResponse.from(result.card)
+            is GetRecentCardUseCase.Result.Failure -> throw NotFoundException(result.message)
         }
     }
 
