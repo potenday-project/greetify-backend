@@ -35,6 +35,9 @@ dependencies {
     // spring openapi
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
+    // logging
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
 
