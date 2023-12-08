@@ -1,4 +1,4 @@
-package com.beside.greetifybe.domain
+package com.beside.greetifybe.domain.enums
 
 enum class Dialect {
     GYEONGSANG,
