@@ -1,19 +1,19 @@
-package com.beside.greetifybe.application.port.`in`.impl
+package com.beside.greetifybe.application.service
 
 import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
-import com.beside.greetifybe.application.port.out.PhraseGenerator
-import com.beside.greetifybe.application.port.out.CardRepository
+import com.beside.greetifybe.application.port.out.CardPhraseGenerator
+import com.beside.greetifybe.application.port.out.CardQueryHandler
 import com.beside.greetifybe.domain.Card
 import org.springframework.stereotype.Service
 
 @Service
-class CreateCard(
-    private val cardRepository: CardRepository,
-    private val phraseGenerator: PhraseGenerator,
+class CreateCardService(
+    private val cardQueryHandler: CardQueryHandler,
+    private val cardPhraseGenerator: CardPhraseGenerator,
 ) : CreateCardUseCase {
 
     override fun invoke(command: CreateCardUseCase.Command): CreateCardUseCase.Result {
-        val phrase: String = phraseGenerator.generatePhrase(
+        val phrase: String = cardPhraseGenerator.generate(
             command.season,
             command.emotional,
             command.age,
@@ -27,7 +27,7 @@ class CreateCard(
             phrase
         )
 
-        cardRepository.save(newCard)
+        cardQueryHandler.save(newCard)
         return CreateCardUseCase.Result.Success(phrase)
     }
 

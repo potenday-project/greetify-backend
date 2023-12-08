@@ -5,9 +5,9 @@ import com.beside.greetifybe.domain.enums.Dialect
 import com.beside.greetifybe.domain.enums.Emotional
 import com.beside.greetifybe.domain.enums.Season
 
-interface PhraseGenerator {
+interface CardPhraseGenerator {
 
-    fun generatePhrase(
+    fun generate(
         season: Season,
         emotional: Emotional,
         age: Age,
