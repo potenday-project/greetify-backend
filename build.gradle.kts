@@ -28,8 +28,12 @@ repositories {
 extra["springCloudVersion"] = "2023.0.0-RC1"
 
 dependencies {
+    // spring
     implementation("org.springframework.boot:spring-boot-starter-validation:${Version.SPRING_BOOT}")
     implementation("org.springframework.boot:spring-boot-starter-web:${Version.SPRING_BOOT}")
+
+    // spring openapi
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
