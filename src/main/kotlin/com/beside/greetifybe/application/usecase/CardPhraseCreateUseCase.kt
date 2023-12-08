@@ -4,15 +4,12 @@ import com.beside.greetifybe.domain.enums.Age
 import com.beside.greetifybe.domain.enums.Dialect
 import com.beside.greetifybe.domain.enums.Emotional
 import com.beside.greetifybe.domain.enums.Season
-import com.beside.greetifybe.domain.vo.IPAddress
 
-interface CardCreateUseCase {
+interface CardPhraseCreateUseCase {
 
     fun invoke(command: Command): Result
 
     data class Command(
-        val userIp: IPAddress,
-        val cardDesignId: Long,
         val season: Season,
         val emotional: Emotional,
         val age: Age,
