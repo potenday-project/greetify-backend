@@ -48,6 +48,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
 
+    // ulid
+    implementation("com.github.f4b6a3:ulid-creator:5.2.2")
+
     // development support
     developmentOnly("org.springframework.boot:spring-boot-devtools:${Version.SPRING_BOOT}")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose:${Version.SPRING_BOOT}")
