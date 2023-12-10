@@ -7,20 +7,21 @@ import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
 import com.beside.greetifybe.common.exception.ApiExceptionType
 import com.beside.greetifybe.common.exception.CustomException
 import com.beside.greetifybe.domain.vo.IPAddress
+import io.swagger.v3.oas.annotations.Operation
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/cards")
-class CardRestController(
+class CardApiController(
     private val createCardUseCase: CreateCardUseCase,
     private val getRecentCardUseCase: GetRecentCardUseCase,
-) {
+): CardApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createCard(
+    override fun createCard(
         request: HttpServletRequest,
         @RequestBody
         createCardRequest: CreateCardRequest
@@ -41,7 +42,8 @@ class CardRestController(
 
     @GetMapping("/recent")
     @ResponseStatus(HttpStatus.OK)
-    fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse {
+    @Operation(summary = "최근 카드 조회 API")
+    override fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
         val result: GetRecentCardUseCase.Result = getRecentCardUseCase.invoke(currentIP)
 
