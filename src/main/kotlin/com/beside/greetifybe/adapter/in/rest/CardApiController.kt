@@ -1,6 +1,7 @@
 package com.beside.greetifybe.adapter.`in`.rest
 
 import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardRequest
+import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardResponse
 import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
 import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
 import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
@@ -25,7 +26,7 @@ class CardApiController(
         request: HttpServletRequest,
         @RequestBody
         createCardRequest: CreateCardRequest
-    ) {
+    ): CreateCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
         val useCaseCommand: CreateCardUseCase.Command = CreateCardUseCase.Command(
             userIp = currentIP,
@@ -37,7 +38,16 @@ class CardApiController(
             words = createCardRequest.words
         )
 
-        createCardUseCase.invoke(useCaseCommand)
+        val result: CreateCardUseCase.Result = createCardUseCase.invoke(useCaseCommand)
+
+        when (result) {
+            is CreateCardUseCase.Result.Success -> return CreateCardResponse.from(result.card)
+            is CreateCardUseCase.Result.Failure -> throw CustomException(
+                ApiExceptionType.RESOURCE_NOT_FOUND,
+                result.message
+            )
+        }
+
     }
 
     @GetMapping("/recent")

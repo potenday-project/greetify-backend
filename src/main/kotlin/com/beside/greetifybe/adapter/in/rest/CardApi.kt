@@ -1,6 +1,7 @@
 package com.beside.greetifybe.adapter.`in`.rest
 
 import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardRequest
+import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardResponse
 import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -13,7 +14,7 @@ interface CardApi {
     fun createCard(
         request: HttpServletRequest,
         createCardRequest: CreateCardRequest
-    )
+    ): CreateCardResponse
 
     @Operation(summary = "최근 생성 카드 조회 API")
     fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse
