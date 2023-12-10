@@ -27,7 +27,7 @@ spring:
   docker:
     compose:
       enabled: true
-      file: ./compose.yml
+      file: ./compose.yaml
 springdoc:
   swagger-ui:
     enabled: true
