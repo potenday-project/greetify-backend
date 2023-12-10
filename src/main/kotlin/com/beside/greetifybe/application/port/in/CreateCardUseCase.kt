@@ -1,5 +1,6 @@
 package com.beside.greetifybe.application.port.`in`
 
+import com.beside.greetifybe.domain.Card
 import com.beside.greetifybe.domain.enums.Age
 import com.beside.greetifybe.domain.enums.Dialect
 import com.beside.greetifybe.domain.enums.Emotional
@@ -21,7 +22,7 @@ fun interface CreateCardUseCase {
     )
 
     sealed interface Result {
-        data class Success(val phrase: String) : Result
+        data class Success(val card: Card) : Result
         data class Failure(val message: String) : Result
     }
 }
