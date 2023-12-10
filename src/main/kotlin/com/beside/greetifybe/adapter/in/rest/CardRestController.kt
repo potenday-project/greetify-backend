@@ -18,7 +18,7 @@ class CardRestController(
     private val getRecentCardUseCase: GetRecentCardUseCase,
 ) {
 
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createCard(
         request: HttpServletRequest,
