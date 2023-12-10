@@ -1,5 +1,6 @@
 package com.beside.greetifybe.adapter.out.redis.repository
 
+import com.beside.greetifybe.adapter.out.redis.entity.CardRedisEntity
 import com.beside.greetifybe.application.port.out.CardCommandHandler
 import com.beside.greetifybe.application.port.out.CardQueryHandler
 import com.beside.greetifybe.domain.Card
@@ -15,19 +16,16 @@ class CardRepository(
 
     @Transactional
     override fun save(card: Card) {
-        val cardKey = "${card.userIp.value}:${card.id}"
-        val ipKey = "userIp:$card.userIp.value"
-
-        redisHandler.setDataExpire(cardKey, card, Duration.ofHours(Card.RETENTION_HOUR))
-        redisHandler.setDataExpire(ipKey, card.id.toString(), Duration.ofHours(Card.RETENTION_HOUR))
+        val cardRedisEntity: CardRedisEntity = CardRedisEntity.from(card)
+        redisHandler.setDataExpire(cardRedisEntity.id.toString(), cardRedisEntity, Duration.ofHours(Card.RETENTION_HOUR))
+        redisHandler.setDataExpire(cardRedisEntity.userIp, cardRedisEntity.id.toString(), Duration.ofHours(Card.RETENTION_HOUR))
     }
 
     @Transactional(readOnly = true)
     override fun getByIpAddress(ipAddress: IPAddress): Card? {
-        val ipKey = "userIp:$ipAddress.value"
-        val id: String = redisHandler.getData(ipKey) ?: return null
-        val cardKey = "$ipAddress:$id"
-        return redisHandler.getData(cardKey)
+        val id: String = redisHandler.getData(ipAddress.value) ?: return null
+        val findCardRedisEntity: CardRedisEntity? = redisHandler.getData(id)
+        return findCardRedisEntity?.toDomain()
     }
 
 }

@@ -1,7 +1,10 @@
 package com.beside.greetifybe.adapter.out.redis.config
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
@@ -25,10 +28,26 @@ class RedisConfig {
     }
 
     private fun redisSerializer(): RedisSerializer<Any> {
-        val objectMapper = ObjectMapper()
-        objectMapper.registerModule(JavaTimeModule())
+        val polymorphicTypeValidator: BasicPolymorphicTypeValidator = BasicPolymorphicTypeValidator
+            .builder()
+            .allowIfBaseType(Any::class.java)
+            .build()
+
+        val objectMapper: ObjectMapper =
+            ObjectMapper()
+                .registerModule(kotlinModule())
+                .registerModule(JavaTimeModule())
+                .activateDefaultTyping(
+                    polymorphicTypeValidator,
+                    ObjectMapper.DefaultTyping.EVERYTHING,
+                    JsonTypeInfo.As.PROPERTY
+                )
 
         return GenericJackson2JsonRedisSerializer(objectMapper)
+    }
+
+    private fun kotlinModule(): KotlinModule {
+        return KotlinModule.Builder().build()
     }
 
 }
