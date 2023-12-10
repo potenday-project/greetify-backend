@@ -5,7 +5,5 @@ import com.beside.greetifybe.domain.vo.IPAddress
 
 interface CardQueryHandler {
 
-    fun save(card: Card)
-
     fun getByIpAddress(ipAddress: IPAddress): Card?
 }

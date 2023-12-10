@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CreateCardService(
-    private val cardQueryHandler: CardQueryHandler,
+    private val cardCommandHandler: CardCommandHandler,
     private val cardPhraseGenerator: CardPhraseGenerator,
 ) : CreateCardUseCase {
 
@@ -27,7 +27,7 @@ class CreateCardService(
             phrase
         )
 
-        cardQueryHandler.save(newCard)
+        cardCommandHandler.save(newCard)
         return CreateCardUseCase.Result.Success(phrase)
     }
 

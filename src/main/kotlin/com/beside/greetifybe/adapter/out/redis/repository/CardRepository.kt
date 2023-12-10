@@ -1,5 +1,6 @@
 package com.beside.greetifybe.adapter.out.redis.repository
 
+import com.beside.greetifybe.application.port.out.CardCommandHandler
 import com.beside.greetifybe.application.port.out.CardQueryHandler
 import com.beside.greetifybe.domain.Card
 import com.beside.greetifybe.domain.vo.IPAddress
@@ -10,7 +11,7 @@ import java.time.Duration
 @Repository
 class CardRepository(
     private val redisHandler: RedisHandler,
-) : CardQueryHandler {
+) : CardQueryHandler, CardCommandHandler {
 
     @Transactional
     override fun save(card: Card) {
