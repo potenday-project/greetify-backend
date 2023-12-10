@@ -5,10 +5,7 @@ import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardResponse
 import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
 import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
 import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
-import com.beside.greetifybe.common.exception.ApiExceptionType
-import com.beside.greetifybe.common.exception.CustomException
 import com.beside.greetifybe.domain.vo.IPAddress
-import io.swagger.v3.oas.annotations.Operation
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 class CardApiController(
     private val createCardUseCase: CreateCardUseCase,
     private val getRecentCardUseCase: GetRecentCardUseCase,
-): CardApi {
+) : CardApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,31 +35,21 @@ class CardApiController(
             words = createCardRequest.words
         )
 
-        val result: CreateCardUseCase.Result = createCardUseCase.invoke(useCaseCommand)
-
-        when (result) {
+        when (val result: CreateCardUseCase.Result = createCardUseCase.invoke(useCaseCommand)) {
             is CreateCardUseCase.Result.Success -> return CreateCardResponse.from(result.card)
-            is CreateCardUseCase.Result.Failure -> throw CustomException(
-                ApiExceptionType.RESOURCE_NOT_FOUND,
-                result.message
-            )
+            is CreateCardUseCase.Result.Failure -> throw result.exception
         }
 
     }
 
     @GetMapping("/recent")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "최근 카드 조회 API")
     override fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
-        val result: GetRecentCardUseCase.Result = getRecentCardUseCase.invoke(currentIP)
 
-        return when (result) {
+        return when (val result: GetRecentCardUseCase.Result = getRecentCardUseCase.invoke(currentIP)) {
             is GetRecentCardUseCase.Result.Success -> GetRecentCardResponse.from(result.card)
-            is GetRecentCardUseCase.Result.Failure -> throw CustomException(
-                ApiExceptionType.RESOURCE_NOT_FOUND,
-                result.message
-            )
+            is GetRecentCardUseCase.Result.Failure -> throw result.exception
         }
     }
 
