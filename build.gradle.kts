@@ -41,6 +41,9 @@ dependencies {
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
 
+    // time
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.0")
+
     // openfeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1")
 
