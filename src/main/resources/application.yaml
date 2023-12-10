@@ -1,3 +1,33 @@
+---
+# default
+spring:
+  profiles:
+    default: dev
+---
+# prod
+spring:
+  profiles:
+    active: prod
+  docker:
+    compose:
+      enabled: false
+  data:
+    redis:
+      host: redisc-k4fic.vpc-cdb.ntruss.com
+      port: 6379
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+---
+# dev
+spring:
+  profiles:
+    active: dev
+  docker:
+    compose:
+      enabled: true
+      file: ./compose.yml
 springdoc:
   swagger-ui:
     enabled: true
