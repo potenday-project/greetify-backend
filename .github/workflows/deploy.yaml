@@ -60,5 +60,6 @@ jobs:
               -e CLOVA_API_GATEWAY_KEY \
               -e CLOVA_STUDIO_API_KEY \
               -e CLOVA_STUDIO_REQUEST_ID \
+              -e SPRING_PROFILES_ACTIVE=prod \
               ${{ secrets.NCP_PRIVATE_CONTAINER_REGISTRY }}/greetify-backend:latest
             docker image prune -f
