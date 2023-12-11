@@ -16,7 +16,7 @@ data class CreateCardRequest(
     val emotional: Emotional,
     @Schema(description = "연령대", example = "TEENAGER")
     val age: Age,
-    @Schema(description = "말투", example = "ANCHOR")
+    @Schema(description = "말투", example = "GYEONGSANG")
     val dialect: Dialect,
     @Schema(description = "단어 리스트", example = "[\"선생님\", \"가르쳐주셔서\"]")
     val words: List<String>,

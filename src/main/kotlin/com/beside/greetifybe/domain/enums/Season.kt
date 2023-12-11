@@ -1,7 +1,7 @@
 package com.beside.greetifybe.domain.enums
 
 enum class Season(
-    private val value: String
+    val value: String
 ) {
     CHRISTMAS("크리스마스"),
     NEW_YEAR("신년"),
