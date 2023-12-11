@@ -2,7 +2,7 @@ package com.beside.greetifybe.domain.enums
 
 
 enum class Emotional(
-    private val value: String
+    val value: String
 ) {
     GREETING("인사"),
     LOVE("사랑"),

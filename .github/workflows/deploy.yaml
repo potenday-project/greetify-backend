@@ -45,8 +45,20 @@ jobs:
             apt-get update
             apt-get install -y docker.io
             
+            # Set environment variables
+            export CLOVA_STUDIO_URL=${{ secrets.CLOVA_STUDIO_URL }}
+            export CLOVA_API_GATEWAY_KEY=${{ secrets.CLOVA_API_GATEWAY_KEY }}
+            export CLOVA_STUDIO_API_KEY=${{ secrets.CLOVA_STUDIO_API_KEY }}
+            export CLOVA_STUDIO_REQUEST_ID=${{ secrets.CLOVA_STUDIO_REQUEST_ID }}
+            
+            # Pull and run the Docker image
             docker pull ${{ secrets.NCP_PRIVATE_CONTAINER_REGISTRY }}/greetify-backend:latest
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 8080:8080 ${{ secrets.NCP_PRIVATE_CONTAINER_REGISTRY }}/greetify-backend:latest
+            docker run -d -p 8080:8080 \
+              -e CLOVA_STUDIO_URL \
+              -e CLOVA_API_GATEWAY_KEY \
+              -e CLOVA_STUDIO_API_KEY \
+              -e CLOVA_STUDIO_REQUEST_ID \
+              ${{ secrets.NCP_PRIVATE_CONTAINER_REGISTRY }}/greetify-backend:latest
             docker image prune -f

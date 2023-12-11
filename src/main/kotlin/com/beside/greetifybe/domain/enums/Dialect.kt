@@ -1,7 +1,7 @@
 package com.beside.greetifybe.domain.enums
 
 enum class Dialect (
-    private val value: String
+    val value: String
 ){
     GYEONGSANG("경상도 사투리"),
     JEOLLA("전라도 사투리"),

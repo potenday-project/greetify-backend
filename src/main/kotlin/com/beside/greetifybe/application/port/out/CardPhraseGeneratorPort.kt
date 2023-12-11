@@ -5,7 +5,7 @@ import com.beside.greetifybe.domain.enums.Dialect
 import com.beside.greetifybe.domain.enums.Emotional
 import com.beside.greetifybe.domain.enums.Season
 
-interface CardPhraseGenerator {
+interface CardPhraseGeneratorPort {
 
     fun generate(
         season: Season,
