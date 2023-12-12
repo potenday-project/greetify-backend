@@ -6,7 +6,7 @@ import com.beside.greetifybe.domain.enums.Emotional
 import com.beside.greetifybe.domain.enums.Season
 import io.swagger.v3.oas.annotations.media.Schema
 
-@Schema(description = "카드 문구 생성 요청")
+@Schema(name = "카드 문구 생성 요청")
 data class CreateCardPhraseRequest(
     @Schema(description = "카드 디자인 ID", example = "1")
     val cardDesignId: Long,

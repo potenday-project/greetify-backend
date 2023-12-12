@@ -4,7 +4,7 @@ import com.beside.greetifybe.domain.Card
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 
-@Schema(description = "최근 카드 조회 응답")
+@Schema(name = "최근 카드 조회 응답")
 data class GetRecentCardResponse(
     @Schema(description = "카드 디자인 ID", example = "1")
     val cardDesignId: Long,
