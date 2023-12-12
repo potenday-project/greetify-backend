@@ -6,20 +6,18 @@ import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
 import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
 import com.beside.greetifybe.domain.vo.IPAddress
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/cards")
 class CardApiController(
     private val createCardPhraseUseCase: CreateCardPhraseUseCase,
     private val createCardUseCase: CreateCardUseCase,
     private val getRecentCardUseCase: GetRecentCardUseCase,
 ) : CardApi {
 
-    @PostMapping("/create-phrase")
-    @ResponseStatus(HttpStatus.OK)
-    override fun createCardPhrase(@RequestBody
+    override fun createCardPhrase(
+        @RequestBody
         createCardPhraseRequest: CreateCardPhraseRequest
     ): CreateCardPhraseResponse {
         val useCaseCommand: CreateCardPhraseUseCase.Command = CreateCardPhraseUseCase.Command(
@@ -37,8 +35,6 @@ class CardApiController(
         }
     }
 
-    @PostMapping("/")
-    @ResponseStatus(HttpStatus.CREATED)
     override fun createCard(
         request: HttpServletRequest,
         createCardRequest: CreateCardRequest
@@ -56,8 +52,6 @@ class CardApiController(
         }
     }
 
-    @GetMapping("/recent")
-    @ResponseStatus(HttpStatus.OK)
     override fun getRecentCard(request: HttpServletRequest): GetRecentCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
 
