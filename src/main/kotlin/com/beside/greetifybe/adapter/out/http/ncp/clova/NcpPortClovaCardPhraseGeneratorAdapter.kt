@@ -17,8 +17,8 @@ class NcpPortClovaCardPhraseGeneratorAdapter(
 
     override fun generate(
         season: Season,
-        emotional: Emotional,
-        age: Age,
+        emotional: List<Emotional>,
+        age: List<Age>,
         dialect: Dialect,
         word: List<String>
     ): String {
@@ -26,8 +26,8 @@ class NcpPortClovaCardPhraseGeneratorAdapter(
 
         val data: String = """
             시즌 : ${season.value}\n
-            감정 : ${emotional.value}
-            연령대 : ${age.value}
+            감정 : ${emotional[0].value}, ${emotional[1].value}
+            연령대 : ${age[0].value}, ${age[1].value}
             말투 : ${dialect.value}
             단어 1 : ${word[0]}
             단어 2 : ${word[1]}

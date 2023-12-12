@@ -9,8 +9,8 @@ interface CardPhraseGeneratorPort {
 
     fun generate(
         season: Season,
-        emotional: Emotional,
-        age: Age,
+        emotional: List<Emotional>,
+        age: List<Age>,
         dialect: Dialect,
         word: List<String>
     ): String

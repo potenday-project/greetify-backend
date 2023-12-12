@@ -1,8 +1,7 @@
 package com.beside.greetifybe.adapter.`in`.rest
 
-import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardRequest
-import com.beside.greetifybe.adapter.`in`.rest.dto.CreateCardResponse
-import com.beside.greetifybe.adapter.`in`.rest.dto.GetRecentCardResponse
+import com.beside.greetifybe.adapter.`in`.rest.dto.*
+import com.beside.greetifybe.application.port.`in`.CreateCardPhraseUseCase
 import com.beside.greetifybe.application.port.`in`.CreateCardUseCase
 import com.beside.greetifybe.application.port.`in`.GetRecentCardUseCase
 import com.beside.greetifybe.domain.vo.IPAddress
@@ -13,33 +12,48 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/cards")
 class CardApiController(
+    private val createCardPhraseUseCase: CreateCardPhraseUseCase,
     private val createCardUseCase: CreateCardUseCase,
     private val getRecentCardUseCase: GetRecentCardUseCase,
 ) : CardApi {
 
-    @PostMapping
+    @PostMapping("/create-phrase")
+    @ResponseStatus(HttpStatus.OK)
+    override fun createCardPhrase(@RequestBody
+        createCardPhraseRequest: CreateCardPhraseRequest
+    ): CreateCardPhraseResponse {
+        val useCaseCommand: CreateCardPhraseUseCase.Command = CreateCardPhraseUseCase.Command(
+            cardDesignId = createCardPhraseRequest.cardDesignId,
+            season = createCardPhraseRequest.season,
+            emotional = createCardPhraseRequest.emotional,
+            age = createCardPhraseRequest.age,
+            dialect = createCardPhraseRequest.dialect,
+            words = createCardPhraseRequest.words
+        )
+
+        when (val result: CreateCardPhraseUseCase.Result = createCardPhraseUseCase.invoke(useCaseCommand)) {
+            is CreateCardPhraseUseCase.Result.Success -> return CreateCardPhraseResponse.from(phrase = result.phrase)
+            is CreateCardPhraseUseCase.Result.Failure -> throw result.exception
+        }
+    }
+
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     override fun createCard(
         request: HttpServletRequest,
-        @RequestBody
         createCardRequest: CreateCardRequest
     ): CreateCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
+
         val useCaseCommand: CreateCardUseCase.Command = CreateCardUseCase.Command(
             userIp = currentIP,
             cardDesignId = createCardRequest.cardDesignId,
-            season = createCardRequest.season,
-            emotional = createCardRequest.emotional,
-            age = createCardRequest.age,
-            dialect = createCardRequest.dialect,
-            words = createCardRequest.words
+            phrase = createCardRequest.phrase,
         )
 
-        when (val result: CreateCardUseCase.Result = createCardUseCase.invoke(useCaseCommand)) {
-            is CreateCardUseCase.Result.Success -> return CreateCardResponse.from(result.card)
-            is CreateCardUseCase.Result.Failure -> throw result.exception
+        return when (val result: CreateCardUseCase.Result = createCardUseCase.invoke(useCaseCommand)) {
+            is CreateCardUseCase.Result.Success -> CreateCardResponse.from(card = result.card)
         }
-
     }
 
     @GetMapping("/recent")
