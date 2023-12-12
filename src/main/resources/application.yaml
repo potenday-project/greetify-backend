@@ -3,6 +3,9 @@
 spring:
   profiles:
     default: dev
+logging:
+  level:
+    com.guide.openfeign.infra: DEBUG
 ncp:
   clova-studio:
     url: ${CLOVA_STUDIO_URL}
