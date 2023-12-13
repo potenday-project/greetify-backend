@@ -20,7 +20,7 @@ interface CardApi {
     fun createCardPhrase(createCardPhraseRequest: CreateCardPhraseRequest): CreateCardPhraseResponse
 
     @Operation(summary = "감사 카드 생성 API")
-    @PostMapping("/")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     fun createCard(
         request: HttpServletRequest,
