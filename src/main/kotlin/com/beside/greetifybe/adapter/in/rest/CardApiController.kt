@@ -37,6 +37,7 @@ class CardApiController(
 
     override fun createCard(
         request: HttpServletRequest,
+        @RequestBody
         createCardRequest: CreateCardRequest
     ): CreateCardResponse {
         val currentIP = IPAddress(request.remoteAddr)
