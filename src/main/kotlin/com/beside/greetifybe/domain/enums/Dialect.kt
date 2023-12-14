@@ -9,5 +9,6 @@ enum class Dialect (
     CHUNGCHEONG("충청도 사투리"),
     NOVEL("소설 문체"),
     CELEBRITY("셀럽 말투"),
-    HISTORICAL("사극 말투")
+    HISTORICAL("사극 말투"),
+    POLITE("존댓말"),
 }
