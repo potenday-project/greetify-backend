@@ -11,7 +11,7 @@ data class CreateCardResponse(
     @Schema(description = "카드 문구", example = "선생님 가르쳐주셔서 감사합니다.")
     val phrase: String,
     @Schema(description = "카드 생성 일시", example = "2021-10-10T10:10:10")
-    val createdAt: LocalDateTime,
+    val createdAt: String,
 ) {
 
     companion object {
@@ -19,7 +19,7 @@ data class CreateCardResponse(
             return CreateCardResponse(
                 cardDesignId = card.cardDesignId,
                 phrase = card.phrase,
-                createdAt = card.createdAt,
+                createdAt = card.createdAt.toString(),
             )
         }
     }

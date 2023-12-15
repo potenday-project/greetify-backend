@@ -13,14 +13,14 @@ data class GetRecentCardResponse(
     val phrase: String,
 
     @Schema(description = "카드 생성 일시", example = "2021-10-10T10:10:10")
-    val createdAt: LocalDateTime,
+    val createdAt: String
 ) {
     companion object {
         fun from(card: Card): GetRecentCardResponse {
             return GetRecentCardResponse(
                 cardDesignId = card.cardDesignId,
                 phrase = card.phrase,
-                createdAt = card.createdAt,
+                createdAt = card.createdAt.toString(),
             )
         }
     }
