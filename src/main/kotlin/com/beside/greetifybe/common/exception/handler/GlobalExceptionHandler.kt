@@ -56,6 +56,7 @@ class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleHttpMethodNotReadableException(exception: HttpMessageNotReadableException): ErrorResponse {
+        logger.info { exception.message }
         return ErrorResponse(
             exceptionCode = ApiExceptionType.INVALID_PARAMETER.code,
             message = "잘못된 HttpBody 형식입니다.",
